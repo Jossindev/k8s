@@ -25,6 +25,13 @@ spec:
               value: "postgres"
             - name: POSTGRES_DB
               value: "postgres"
+          volumeMounts:
+            - name: songs-storage
+              mountPath: /app/data
+      volumes:
+        - name: songs-storage
+          persistentVolumeClaim:
+            claimName: songs-pvc
 ---
 apiVersion: v1
 kind: Service
