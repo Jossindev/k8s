@@ -1,5 +1,5 @@
 # Smaller OS footprint using JRE
-FROM openjdk:21
+FROM amazoncorretto:21
 WORKDIR /app
 
 ADD build/libs/*.jar /app/app.jar
