@@ -19,18 +19,21 @@ spec:
           image: postgres:latest
           ports:
             - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: db-credentials
           env:
-            - name: POSTGRES_USER
-              value: "postgres"
-            - name: POSTGRES_PASSWORD
-              value: "postgres"
-            - name: POSTGRES_DB
-              value: "postgres"
             - name: PGDATA
               value: "/var/lib/postgresql/data/pgdata"
           volumeMounts:
             - name: resources-db-data
               mountPath: /var/lib/postgresql/data
+            - name: initdb
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: initdb
+          configMap:
+            name: resources-db-initdb
   volumeClaimTemplates:
     - metadata:
         name: resources-db-data
