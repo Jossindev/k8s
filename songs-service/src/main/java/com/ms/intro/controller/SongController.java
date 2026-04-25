@@ -38,14 +38,14 @@ public class SongController {
     @PostMapping(consumes = "application/json")
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public IdDto saveSongMetadata(@Validated @RequestBody SongDto song) {
+    public SongDto saveSongMetadata(@Validated @RequestBody SongDto song) {
         songRepo.findByResourceId(song.getResourceId().intValue())
                 .ifPresent(el -> {
                     throw new DuplicatedResourceIdException("Duplicated \"resourceId\": " + song.getResourceId().intValue());
                 });
         SongData savedMeta = SongDtoToDomainMapper.INSTANCE.songToCarDto(song);
         savedMeta = songRepo.save(savedMeta);
-        return new IdDto(savedMeta.getId());
+        return SongDtoToDomainMapper.INSTANCE.songToCarDto(savedMeta);
     }
 
     @DeleteMapping
