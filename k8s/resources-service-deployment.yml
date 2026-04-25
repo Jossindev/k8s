@@ -19,19 +19,20 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: resources-service-config
           env:
-            - name: RESOURCES_DB_URL
-              value: "resources-db"
-            - name: RESOURCES_DB_PORT
-              value: "5432"
-            - name: RESOURCES_MS_PORT
-              value: "8080"
-            - name: SONGS_MS_URL
-              value: "songs-service"
-            - name: SONGS_MS_PORT
-              value: "8081"
-            - name: ENABLE_EUREKA_CLIENT
-              value: "false"
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: POSTGRES_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: POSTGRES_PASSWORD
 ---
 apiVersion: v1
 kind: Service
