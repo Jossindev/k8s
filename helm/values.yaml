@@ -7,7 +7,7 @@ replicaCount:
   songsDb: 1
 
 resourcesService:
-  image: resources-image:latest
+  image: resources-image:v2
   imagePullPolicy: IfNotPresent
   containerPort: 8080
   nodePort: 30080
