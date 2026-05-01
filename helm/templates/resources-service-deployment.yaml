@@ -66,10 +66,9 @@ metadata:
   name: resources-service
   namespace: {{ .Values.namespace }}
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: resources-service
   ports:
     - port: {{ .Values.resourcesService.containerPort }}
       targetPort: {{ .Values.resourcesService.containerPort }}
-      nodePort: {{ .Values.resourcesService.nodePort }}
