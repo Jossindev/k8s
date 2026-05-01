@@ -1,0 +1,29 @@
+namespace: k8s-program
+
+replicaCount:
+  resourcesService: 2
+  songsService: 2
+  resourcesDb: 1
+  songsDb: 1
+
+resourcesService:
+  image: resources-image:latest
+  imagePullPolicy: IfNotPresent
+  containerPort: 8080
+  nodePort: 30080
+
+songsService:
+  image: jossindev/songs-image:v2
+  imagePullPolicy: IfNotPresent
+  containerPort: 8081
+  nodePort: 30081
+
+postgres:
+  image: postgres:latest
+  storage: 1Gi
+  storageClassName: standard
+
+dbCredentials:
+  user: postgres
+  password: postgres
+  db: postgres
