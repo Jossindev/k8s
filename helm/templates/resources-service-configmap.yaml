@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: resources-service-config
   namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "microservices-intro.labels" . | nindent 4 }}
 data:
   RESOURCES_DB_URL: "resources-db"
   RESOURCES_DB_PORT: "5432"
