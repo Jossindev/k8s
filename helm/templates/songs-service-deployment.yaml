@@ -66,10 +66,9 @@ metadata:
   name: songs-service
   namespace: {{ .Values.namespace }}
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: songs-service
   ports:
     - port: {{ .Values.songsService.containerPort }}
       targetPort: {{ .Values.songsService.containerPort }}
-      nodePort: {{ .Values.songsService.nodePort }}

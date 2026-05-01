@@ -1,4 +1,4 @@
-namespace: k8s-program
+namespace: k8s-custom
 
 replicaCount:
   resourcesService: 2
@@ -10,13 +10,11 @@ resourcesService:
   image: resources-image:v2
   imagePullPolicy: IfNotPresent
   containerPort: 8080
-  nodePort: 30080
 
 songsService:
   image: jossindev/songs-image:v2
   imagePullPolicy: IfNotPresent
   containerPort: 8081
-  nodePort: 30081
 
 postgres:
   image: postgres:latest
@@ -27,3 +25,16 @@ dbCredentials:
   user: postgres
   password: postgres
   db: postgres
+
+ingress:
+  enabled: true
+  className: nginx
+  host: ""
+  rewriteTarget: /$1/$3
+  paths:
+    - path: /api/v1/(resources)(/|$)(.*)
+      service: resources-service
+      port: 8080
+    - path: /api/v1/(songs)(/|$)(.*)
+      service: songs-service
+      port: 8081
