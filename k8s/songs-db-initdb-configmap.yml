@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: songs-db-initdb
+  namespace: k8s-program
+data:
+  init.sql: |
+    CREATE TABLE IF NOT EXISTS songs (
+        id           SERIAL PRIMARY KEY,
+        name         VARCHAR(255),
+        artist       VARCHAR(255),
+        album        VARCHAR(255),
+        length       VARCHAR(64),
+        resource_id  INTEGER NOT NULL UNIQUE,
+        year         VARCHAR(16)
+    );
