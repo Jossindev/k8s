@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: songs-service-config
+  namespace: {{ .Values.namespace }}
+data:
+  SONGS_DB_URL: "songs-db"
+  SONGS_DB_PORT: "5432"
+  SONGS_MS_PORT: "{{ .Values.songsService.containerPort }}"
+  ENABLE_EUREKA_CLIENT: "false"
